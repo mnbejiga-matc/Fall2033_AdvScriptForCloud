@@ -1,0 +1,3 @@
+Before Waiting: Instance is pending
+After Waiting: Instance is running
+Before Terminting: Instance is running
