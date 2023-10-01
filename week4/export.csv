@@ -1,0 +1,9 @@
+InstanceId,InstanceType,State,PublicIpAddress,Monitoring
+t2.micro,t2.micro,running,34.207.89.92,disabled
+t2.micro,t2.micro,running,54.197.16.60,disabled
+t2.micro,t2.micro,running,44.211.223.154,disabled
+t2.micro,t2.micro,running,44.204.53.14,disabled
+t2.micro,t2.micro,running,44.204.72.100,disabled
+t2.micro,t2.micro,running,18.208.114.158,disabled
+t2.micro,t2.micro,running,52.90.112.138,disabled
+t2.micro,t2.micro,running,54.146.57.145,disabled
