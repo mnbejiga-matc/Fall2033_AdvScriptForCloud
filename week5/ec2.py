@@ -1,6 +1,20 @@
 #!/usr/bin/env python3
+
 import boto3
 import json
+
+UserData='''
+            #!/bin/bash -ex
+            # Updated to use Amazon Linux 2
+            yum -y update
+            yum -y install httpd php mysql php-mysql
+            /usr/bin/systemctl enable httpd
+            /usr/bin/systemctl start httpd
+            cd /var/www/html
+            wget https://aws-tc-largeobjects.s3-us-west-2.amazonaws.com/CUR-TF-100-ACCLFO-2/lab6-scaling/lab-app.zip
+            unzip lab-app.zip -d /var/www/html/
+            chown apache:root /var/www/html/rds.conf.php
+        '''
 
 
 def Get_Image(ec2client):
@@ -24,6 +38,8 @@ def Get_Image(ec2client):
 
 def Create_EC2(AMI, ec2client):
 
+    SecurityGroups = ['WebSG']
+
 
     DRYRUN = False
 
@@ -44,13 +60,15 @@ def main():
     ec2 = boto3.resource('ec2')
     instance = ec2.Instance(instance_id)
 
-    
+""" 
+ 
     print(f"Before Waiting: Instance is {instance.state['Name']}")
+
     instance.wait_until_running()
     instance.load()
     print(f"After Waiting: Instance is {instance.state['Name']}")
     
-"""
+
     instance.terminate()
     print(f"Before Terminting: Instance is {instance.state['Name']}")
     instance.wait_until_terminated()
@@ -58,3 +76,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
