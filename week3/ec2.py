@@ -49,9 +49,12 @@ def main():
     instance.wait_until_running()
     instance.load()
     print(f"After Waiting: Instance is {instance.state['Name']}")
+    
+"""
     instance.terminate()
     print(f"Before Terminting: Instance is {instance.state['Name']}")
     instance.wait_until_terminated()
+"""
 
 if __name__ == "__main__":
     main()

@@ -3,6 +3,7 @@
 import boto3
 import json
 
+
 UserData="""
     #!/bin/bash -ex
     # Updated to use Amazon Linux 2
@@ -15,7 +16,7 @@ UserData="""
     unzip lab-app.zip -d /var/www/html/
     chown apache:root /var/www/html/rds.conf.php
 """
-        
+      
 
 
 def Get_Image(ec2client):
