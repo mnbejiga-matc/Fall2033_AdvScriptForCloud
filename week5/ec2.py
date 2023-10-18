@@ -3,18 +3,20 @@
 import boto3
 import json
 
-UserData='''
-            #!/bin/bash -ex
-            # Updated to use Amazon Linux 2
-            yum -y update
-            yum -y install httpd php mysql php-mysql
-            /usr/bin/systemctl enable httpd
-            /usr/bin/systemctl start httpd
-            cd /var/www/html
-            wget https://aws-tc-largeobjects.s3-us-west-2.amazonaws.com/CUR-TF-100-ACCLFO-2/lab6-scaling/lab-app.zip
-            unzip lab-app.zip -d /var/www/html/
-            chown apache:root /var/www/html/rds.conf.php
-        '''
+
+UserData="""
+    #!/bin/bash -ex
+    # Updated to use Amazon Linux 2
+    yum -y update
+    yum -y install httpd php mysql php-mysql
+    /usr/bin/systemctl enable httpd
+    /usr/bin/systemctl start httpd
+    cd /var/www/html
+    wget https://aws-tc-largeobjects.s3-us-west-2.amazonaws.com/CUR-TF-100-ACCLFO-2/lab6-scaling/lab-app.zip
+    unzip lab-app.zip -d /var/www/html/
+    chown apache:root /var/www/html/rds.conf.php
+"""
+      
 
 
 def Get_Image(ec2client):
