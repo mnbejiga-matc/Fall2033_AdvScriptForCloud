@@ -1,0 +1,8 @@
+lambda_client = boto3.client('lambda')
+
+
+function_name = 'MesfinLambda'
+runtime = 'python3.8'
+role_arn = 'arn:aws:iam::YOUR_ACCOUNT_ID:role/Lab Role'
+handler = 'mesfinb_lambda_function.handler'
+
