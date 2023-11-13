@@ -1,32 +1,38 @@
-#!/usr/bin/env python3
-
 import boto3
 
-ec2 = boto3.client('ec2')
+iam = boto3.client('iam')
+lambda_client = boto3.client('lambda')
 
+def Create_Lambda(function_name):
+    lambda_client = boto3.client('lambda')
+    role_response = iam.get_role(RoleName='LabRole')
+    handler = open('lambda_stop_function.zip','rb')
+    zipped_code = handler.read()
 
-def Start_EC2():
-    response = ec2.describe_instances(
-        Filters=[
-            {
-                'Name': 'tag:env',
-                'Values': ['dev']
-            }
-        ]
+    response = lambda_client.create_function(
+        FunctionName = function_name,
+        Role = role_response['Role']['Arn'],
+        Publish = True,
+        PackageType = 'Zip',
+        Runtime = 'python3.9',
+        Code={
+            'ZipFile': zipped_code
+        },
+        Handler='lambda_stop_function.lambda_handler'
     )
-    instance_list = []
-    for reservation in response['Reservations']:
-        for instance in reservation['Instances']:
-            #print(instance['InstanceId'])
-            instance_list.append(instance['InstanceId'])
-    start_response = ec2.start_instances(InstanceIds=instance_list)
-    return start_response
+
+    lambda_client = boto3.client('lambda')
+
 
 def main():
-   
-    print(Start_EC2())
-
+    functionName = 'startEC2'
+    try:
+        function = lambda_client.get_function(FunctionName=functionName)
+        print("Function Already Exists")
+    except:
+        print("Creating Function")
+        response = Create_Lambda(functionName)
+    
 
 if __name__ == "__main__":
     main()
-
