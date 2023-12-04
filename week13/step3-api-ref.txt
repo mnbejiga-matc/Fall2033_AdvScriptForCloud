@@ -1,0 +1,33 @@
+
+    1. Which Python library do you need to install to deploy an Application Service in Azure?
+        pip install azure-mgmt-web
+    2. Which function in this module do you need to use to create a new application?
+        # create a web app
+        web_client.web_apps.create_or_update(
+            RESOURCE_GROUP_NAME,
+            WEB_APP_NAME,
+            Site(
+                location='eastus',
+                server_farm_id=SERVICE_PLAN_ID,
+                site_config=siteConfiguration
+            )
+        )
+    3. Which Python library do you need to install to create a Key Vault Key in Azure?
+        The latest version of the Azure Key Vault libraries is version 4.x.x. Microsoft recommends using version 4.x.x for new applications.
+        Libraries for resource management is azure-mgmt-keyvault
+        azure-keyvault-administration	
+        azure-keyvault-certificates	
+        azure-keyvault-keys	
+        azure-keyvault-secrets	
+
+    4. What function do you use to retrieve a secret from the Key Vault?
+        from azure.identity import DefaultAzureCredential
+        from azure.keyvault.secrets import SecretClient
+
+        credential = DefaultAzureCredential()
+
+        secret_client = SecretClient(vault_url="https://my-key-vault.vault.azure.net/", credential=credential)
+        secret = secret_client.get_secret("secret-name")
+
+        print(secret.name)
+        print(secret.value)
